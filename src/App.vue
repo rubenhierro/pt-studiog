@@ -18,5 +18,4 @@ import Foot from '../src/components/Foot.vue'
 
 <style>
 @import "@/assets/base.css";
-
 </style>

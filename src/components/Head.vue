@@ -12,13 +12,13 @@ import { RouterLink } from 'vue-router'
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <RouterLink to="/categorias" class="nav-link">Categorías</RouterLink>
+            <RouterLink to="/admin/categorias" class="nav-link">Categorías</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink to="/productos" class="nav-link">Productos</RouterLink>
+            <RouterLink to="/admin/productos" class="nav-link">Productos</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink to="/pedidos" class="nav-link">Pedidos</RouterLink>
+            <RouterLink to="/admin/pedidos" class="nav-link">Pedidos</RouterLink>
           </li>
         </ul>
       </div>

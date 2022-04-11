@@ -12,27 +12,27 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      component: () => import("@/views/admin/Login.vue"),
+      component: () => import("@/views/Login.vue"),
       meta: {
-        requiresAuth: true,
+        requiresAuth: false,
       },
     },
     {
       path: "/register",
       name: "register",
-      component: () => import("@/views/admin/Login.vue"),
+      component: () => import("@/views/admin/Register.vue"),
       meta: {
         requiresSuperAuth: true,
       },
     },
-    // {
-    //   path: "/admin/categorias",
-    //   name: "categories",
-    //   component: categories,
-    //   meta: {
-    //     requiresAuth: true,
-    //   },
-    // },
+    {
+      path: "/admin/categorias",
+      name: "categories",
+      component: () => import("@/views/admin/Categories.vue"),
+      meta: {
+        requiresAuth: true,
+      },
+    },
     // {
     //   path: "/admin/productos",
     //   name: "products",
@@ -57,15 +57,15 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from) => {
-  if (to.meta.requiresAuth && !JSON.parse(localStorage.getItem("isLogged"))) {
-    return { name: "login" };
-  }
-  if (
-    to.meta.requiresSuperAuth &&
-    !JSON.parse(localStorage.getItem("isSuperUser"))
-  ) {
-    return { name: "login" };
-  }
-});
+// router.beforeEach((to, from) => {
+//   if (to.meta.requiresAuth && !JSON.parse(localStorage.getItem("isLogged"))) {
+//     return { name: "login" };
+//   }
+//   if (
+//     to.meta.requiresSuperAuth &&
+//     !JSON.parse(localStorage.getItem("isSuperUser"))
+//   ) {
+//     return { name: "login" };
+//   }
+// });
 export default router;

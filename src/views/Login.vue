@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import User from "../../classes/userClass"
-import { LoginStore } from '../../stores/LoginStore'
+import User from "../classes/user"
+import { LoginStore } from '../stores/LoginStore'
 
 const store = LoginStore()
 const router = useRouter()
@@ -21,10 +21,10 @@ function login() {
 
     if (hasUser.value && hasPassword.value) {
       store.setIsLogged(true)
-      if(isSuperUser.value){
+      if (isSuperUser.value) {
         store.setIsSuperUser(true)
       }
-      router.push({ name: 'apartment' })
+      router.push({ name: 'home' })
     }
   } else {
     if (!username.value) hasUser.value = false
@@ -38,25 +38,15 @@ function login() {
       <div v-if="!store.isLogged">
         <h1>Login</h1>
         <form class="row g-3" id="login-form" @submit.prevent="login">
-            <span class="input-alert" v-if="hasUser === false">Sorry, this user don't exists!</span>
-            <span class="input-alert" v-if="hasPassword === false">Incorrect password!</span>
+          <span class="input-alert" v-if="hasUser === false">Sorry, this user don't exists!</span>
+          <span class="input-alert" v-if="hasPassword === false">Incorrect password!</span>
           <div class="col-md-6 pt-3">
-            <input
-              type="text"
-              id="username"
-              v-model="username"
-              :class="{ invalid: hasUser === false }"
-              placeholder="User name"
-            />
+            <input type="text" id="username" v-model="username" :class="{ invalid: hasUser === false }"
+              placeholder="User name" />
           </div>
           <div class="col-md-6 pt-3">
-            <input
-              type="password"
-              id="password"
-              v-model="password"
-              :class="{ invalid: hasPassword === false }"
-              placeholder="Password"
-            />
+            <input type="password" id="password" v-model="password" :class="{ invalid: hasPassword === false }"
+              placeholder="Password" />
           </div>
           <div class="col pt-2 text-right">
             <button class="p-2 px-4 btn btn-primary shadow-lg">Login</button>
@@ -75,9 +65,11 @@ function login() {
   display: flex;
   justify-content: center;
 }
+
 #container {
   max-width: 500px;
 }
+
 #login-form {
   display: flex;
   flex-direction: column;
