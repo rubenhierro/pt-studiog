@@ -33,14 +33,14 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
-    // {
-    //   path: "/admin/productos",
-    //   name: "products",
-    //   component: products,
-    //   meta: {
-    //     requiresAuth: true,
-    //   },
-    // },
+    {
+      path: "/admin/productos",
+      name: "products",
+      component: () => import("@/views/admin/Products.vue"),
+      meta: {
+        requiresAuth: true,
+      },
+    },
     // {
     //   path: "/admin/pedidos",
     //   name: "orders",

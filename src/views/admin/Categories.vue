@@ -65,6 +65,7 @@ export default {
       <div class="card">
         <div class="card-body">
           <div class="card-title">Nueva categoría</div>
+          <span v-if="isEditing" class="text-danger">Editar categoría</span>
           <form @submit.prevent="addCategory">
             <div class="col-md-6 pt-3">
               <input type="text" id="codeInput" v-model="code" placeholder="Código" required />
