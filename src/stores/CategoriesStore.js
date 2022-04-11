@@ -9,12 +9,14 @@ export const useCategoriesStore = defineStore({
         name: "zapatos",
         description: "categoria ppal de zapatos",
         isChild: false,
+        parentCategory: null
       },
       {
         code: "c2",
         name: "pantalones",
         description: "categoria ppal de pantalones",
         isChild: false,
+        parentCategory: null
       },
     ],
   }),

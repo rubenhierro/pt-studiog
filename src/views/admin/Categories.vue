@@ -1,8 +1,10 @@
 <script>
 import Category from '../../classes/category'
 import { useCategoriesStore } from '../../stores/CategoriesStore'
+import List from '../../components/List.vue'
 
 export default {
+  components: { List },
   data() {
     return {
       store: useCategoriesStore(),
@@ -17,8 +19,11 @@ export default {
   },
   computed: {
     categories() {
+      return this.store.categories
+    },
+    parentCategories() {
       return this.store.getCategories
-    }
+    },
   },
   methods: {
     addCategory() {
@@ -42,6 +47,7 @@ export default {
       this.name = this.store.categories[id].name
       this.description = this.store.categories[id].description
       this.isChild = this.store.categories[id].isChild
+      this.parentCategory = this.store.categories[id].parentCategory
       this.currentCategory = id
     },
     deleteCategory(id) {
@@ -61,10 +67,10 @@ export default {
           <div class="card-title">Nueva categoría</div>
           <form @submit.prevent="addCategory">
             <div class="col-md-6 pt-3">
-              <input type="text" id="codeInput" v-model="code" placeholder="Código" />
+              <input type="text" id="codeInput" v-model="code" placeholder="Código" required />
             </div>
             <div class="col-md-6 pt-3">
-              <input type="text" id="nameInput" v-model="name" placeholder="Nombre" />
+              <input type="text" id="nameInput" v-model="name" placeholder="Nombre" required />
             </div>
             <div class="col-md-6 pt-3">
               <textarea id="description" v-model="description" placeholder="Descripción de la categoría..."></textarea>
@@ -78,16 +84,27 @@ export default {
             <div v-if="isChild" class="col-md-6 pt-3">
               <select class="form-select" aria-label="Default select example" v-model="parentCategory">
                 <option selected>Categoría padre</option>
-                <option v-for="(category, index) of categories" :index="index" :value="category.code">{{ category.name }}
+                <option v-for="(category, index) of parentCategories" :index="index" :value="category.name"
+                  :selected="{ true: category.name === parentCategory }">{{
+                    category.name
+                  }}
                 </option>
               </select>
             </div>
             <div class="col pt-3 text-right">
-              <button class="p-2 px-4 btn btn-primary shadow-lg">Crear categoría</button>
+              <button class="p-2 px-4 btn btn-primary shadow-lg">Guardar</button>
             </div>
           </form>
         </div>
       </div>
+    </div>
+    <div class="col">
+      <List :name="'Categorías'" :list="categories" :properties="[
+        { display: 'Código', value: 'code' },
+        { display: 'Nombre', value: 'name' },
+        { display: 'Descripción', value: 'description' },
+        { display: 'Categoría padre', value: 'parentCategory' }
+      ]" :buttons="{ edit: true, delete: true }" @edit="editCategory" @delete="deleteCategory" />
     </div>
   </div>
 </template>
