@@ -17,6 +17,7 @@ export default {
       photos: [],
       categories: [],
       prices: [],
+      defaultPrice: null,
       preview: false,
       isEditing: false,
       currentProduct: null
@@ -28,6 +29,18 @@ export default {
     }
   },
   methods: {
+    updateCollection() {
+      const product = new Product(
+        this.code,
+        this.name,
+        this.description,
+        this.photos,
+        this.categories,
+        this.prices,
+        this.defaultPrice
+      )
+      this.store.editProduct(this.currentProduct, product)
+    },
     addProduct() {
       const product = new Product(
         this.code,
@@ -35,7 +48,8 @@ export default {
         this.description,
         this.photos,
         this.categories,
-        this.prices
+        this.prices,
+        this.defaultPrice
       )
       !this.isEditing
         ? this.store.addProduct(product)
@@ -46,6 +60,7 @@ export default {
       this.photos = []
       this.categories = []
       this.prices = []
+      this.defaultPrice = null
       this.isEditing = false
     },
     editProduct(id) {
@@ -56,6 +71,7 @@ export default {
       this.photos = this.store.products[id].photos
       this.categories = this.store.products[id].categories
       this.prices = this.store.products[id].prices
+      this.defaultPrice = this.store.products[id].defaultPrice
       this.currentProduct = id
     },
     deleteProduct(id) {
@@ -63,32 +79,46 @@ export default {
     },
     addCategory(category) {
       this.categories.push(category)
+      if (this.isEditing)
+        this.updateCollection
     },
     deleteCategory(id) {
       this.categories = this.categories.filter((i, key) => key !== id)
+      if (this.isEditing)
+        this.updateCollection
     },
     addPhoto(photo) {
       this.photos.push(photo)
+      if (this.isEditing)
+        this.updateCollection
     },
     deletePhoto(id) {
       this.photos = this.photos.filter((i, key) => key !== id)
+      if (this.isEditing)
+        this.updateCollection
     },
     previewPhoto(id) {
       this.preview = true
       const img = this.photos[id].img
-      document.getElementById('preview').setAttribute('src', '')
       document.getElementById('preview').setAttribute('src', img)
     },
     addPrice(price) {
       this.prices.push(price);
+      if (this.isEditing)
+        this.updateCollection
     },
     deletePrice(id) {
       this.prices = this.prices.filter((i, key) => key !== id)
+      if (this.isEditing)
+        this.updateCollection
     }
   },
 }
 </script>
 <template>
+  <div class="container">
+    <h1>Admin Productos</h1>
+  </div>
   <div class="row">
     <div class="col">
       <div class="card">
@@ -111,7 +141,13 @@ export default {
               <textarea id="description" v-model="description" placeholder="Descripción del producto..."></textarea>
             </div>
 
-            <!-- Cagegories -->
+            <!-- default price -->
+            <div class="col-md-6 pt-3">
+              <input type="number" id="defaultPriceInput" v-model="defaultPrice" placeholder="Precio por defecto"
+                required />
+            </div>
+
+            <!-- Categories -->
             <p class="mt-3">Categorias</p>
             <div class="collection">
               <ul v-if="categories.length">

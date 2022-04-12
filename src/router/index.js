@@ -41,14 +41,14 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
-    // {
-    //   path: "/admin/pedidos",
-    //   name: "orders",
-    //   component: orders,
-    //   meta: {
-    //     requiresAuth: true,
-    //   },
-    // },
+    {
+      path: "/admin/pedidos",
+      name: "orders",
+      component: () => import("@/views/admin/Orders.vue"),
+      meta: {
+        requiresAuth: true,
+      },
+    },
     {
       path: "/:pathMatch(.*)*",
       name: "NotFound",

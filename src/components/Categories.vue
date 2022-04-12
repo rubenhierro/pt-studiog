@@ -16,10 +16,12 @@ export default {
   },
   methods: {
     addCategory() {
-      const category = this.store.getCategory(this.category)
-      this.$emit('addCategory', category)
-      this.category = null
-      document.getElementById('formCategory').reset()
+      if (this.category) {
+        const category = this.store.getCategory(this.category)
+        this.$emit('addCategory', category)
+        this.category = null
+        document.getElementById('formCategory').reset()
+      }
     }
   }
 }

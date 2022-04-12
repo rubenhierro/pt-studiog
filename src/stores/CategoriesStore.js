@@ -34,6 +34,7 @@ export const useCategoriesStore = defineStore({
     },
     editCategory(id, category) {
       this.categories.splice(id, 1, category);
+      localStorage.setItem("categories", JSON.stringify(this.categories));
     },
     deleteCategory(id) {
       this.categories = this.categories.filter((i, key) => key !== id);

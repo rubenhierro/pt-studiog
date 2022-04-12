@@ -13,9 +13,11 @@ const emits = defineEmits(['edit', 'delete'])
               <span v-if="item[property.value] !== null">
                 <strong>{{ (property.display) }}:</strong>
                 {{
-                  property.type === 'date'
-                    ? new Date(Date.parse(item[property.value])).toLocaleDateString()
-                    : item[property.value]
+                  property.subValue
+                    ? item[property.value][property.subValue]
+                    : property.type === 'date'
+                      ? new Date(Date.parse(item[property.value])).toLocaleDateString()
+                      : item[property.value]
                 }}
                 <br />
               </span>

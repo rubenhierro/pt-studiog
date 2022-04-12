@@ -3,18 +3,16 @@ import { defineStore } from "pinia";
 export const useProductsStore = defineStore({
   id: "products",
   state: () => ({
-    products: JSON.parse(localStorage.getItem("products")) || [
-      {
-        code: "N234",
-        name: "Nike Air",
-        description: "zapatillas deportivas",
-        photos: [],
-        categories: [],
-        prices: [],
-      },
-    ],
+    products: JSON.parse(localStorage.getItem("products")) || [],
   }),
-  getters: {},
+  getters: {
+    getProduct: (state) => {
+      return (id) => state.products.find((i, key) => key === id);
+    },
+    getProductByName: (state) => {
+      return (name) => state.products.find((i, key) => i.name === name);
+    },
+  },
   actions: {
     addProduct(product) {
       this.products = [...this.products, product];
@@ -22,6 +20,7 @@ export const useProductsStore = defineStore({
     },
     editProduct(id, product) {
       this.products.splice(id, 1, product);
+      localStorage.setItem("products", JSON.stringify(this.products));
     },
     deleteProduct(id) {
       this.products = this.products.filter((i, key) => key !== id);

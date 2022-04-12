@@ -64,33 +64,46 @@ export default {
       <div class="card">
         <div class="card-body">
           <div class="card-title">Nueva categoría</div>
-          <span v-if="isEditing" class="text-danger">Editar categor</span>
+          <span v-if="isEditing" class="text-danger">Editar categoría</span>
           <form @submit.prevent="addCategory">
+            <!-- Code -->
             <div class="col-md-6 pt-3">
               <input type="text" id="codeInput" v-model="code" placeholder="Código" required />
             </div>
+
+            <!-- Name -->
             <div class="col-md-6 pt-3">
               <input type="text" id="nameInput" v-model="name" placeholder="Nombre" required />
             </div>
+
+            <!-- Description -->
             <div class="col-md-6 pt-3">
               <textarea id="description" v-model="description" placeholder="Descripción de la categoría..."></textarea>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" v-model="isChild" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                Subcategoría
-              </label>
+
+            <div v-if="parentCategories.length">
+              <!-- Subcategoría -->
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="isChild" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Subcategoría
+                </label>
+              </div>
+
+              <!-- Categoria Padre -->
+              <div v-if="isChild" class="col-md-6 pt-3">
+                <select class="form-select" aria-label="Default select example" v-model="parentCategory">
+                  <option selected>Categoría padre</option>
+                  <option v-for="(category, index) of parentCategories" :index="index" :value="category.name"
+                    :selected="{ true: category.name === parentCategory }">{{
+                      category.name
+                    }}
+                  </option>
+                </select>
+              </div>
             </div>
-            <div v-if="isChild" class="col-md-6 pt-3">
-              <select class="form-select" aria-label="Default select example" v-model="parentCategory">
-                <option selected>Categoría padre</option>
-                <option v-for="(category, index) of parentCategories" :index="index" :value="category.name"
-                  :selected="{ true: category.name === parentCategory }">{{
-                    category.name
-                  }}
-                </option>
-              </select>
-            </div>
+
+            <!-- Guardar -->
             <div class="col pt-3 text-right">
               <button class="p-2 px-4 btn btn-primary shadow-lg">Guardar</button>
             </div>
