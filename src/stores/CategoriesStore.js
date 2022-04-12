@@ -9,20 +9,23 @@ export const useCategoriesStore = defineStore({
         name: "zapatos",
         description: "categoria ppal de zapatos",
         isChild: false,
-        parentCategory: null
+        parentCategory: null,
       },
       {
         code: "c2",
         name: "pantalones",
         description: "categoria ppal de pantalones",
         isChild: false,
-        parentCategory: null
+        parentCategory: null,
       },
     ],
   }),
   getters: {
-    getCategories: (state) =>
+    getParentCategories: (state) =>
       state.categories.filter((i) => i.isChild === false),
+    getCategory: (state) => {
+      return (id) => state.categories.find((i, key) => key === id)
+    },
   },
   actions: {
     addCategory(category) {

@@ -1,15 +1,23 @@
 <script>
 import Photos from '../../components/Photos.vue'
+import Categories from '../../components/Categories.vue'
 
 export default {
-  components: { Photos },
+  components: { Photos, Categories },
   data() {
     return {
       photos: [],
+      categories: [],
       preview: false
     }
   },
   methods: {
+    addCategory(category) {
+      this.categories.push(category)
+    },
+    deleteCategory(id) {
+      this.categories = this.categories.filter((i, key) => key !== id)
+    },
     addPhoto(photo) {
       this.photos.push(photo)
     },
@@ -28,6 +36,16 @@ export default {
 }
 </script>
 <template>
+  <!-- Cagegories -->
+  <ul v-if="categories.length">
+    <li v-for="(category, index) of categories" :index="index">
+      {{ category.name }}
+      <span class="text-danger btn" @click="deleteCategory(index)">[Eliminar]</span>
+    </li>
+  </ul>
+  <Categories @addCategory="addCategory" />
+  
+  <!-- Photos -->
   <ul v-if="photos.length">
     <li v-for="(photo, index) of photos" :index="index">
       {{ photo.name }}
