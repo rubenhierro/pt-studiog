@@ -19,8 +19,8 @@ export default {
         reader.onload = event => {
           const imgObj = { name: this.selectecFile.name, img: reader.result }
           this.$emit('addPhoto', imgObj)
-          const input = document.getElementById('formFile')
-          input.value = null
+          const photoInput = document.getElementById('formFile')
+          photoInput.value = null
           this.selectecFile = null
         }
       }
@@ -29,11 +29,14 @@ export default {
 }
 </script>
 <template>
+
   <div class="mb-3">
-    <label for="formFile" class="form-label">Añadir imagen</label>
-    <input class="form-control" type="file" id="formFile" accept="image/*" @change="onFileSelected">
-    <div class="col pt-3 text-right">
-      <button class="p-2 px-4 btn btn-primary shadow-lg" @click="onUpload">Subir</button>
-    </div>
+    <form @submit.prevent="onUpload">
+      <label for="formFile" class="form-label">Añadir imagen</label>
+      <input class="form-control" type="file" id="formFile" accept="image/*" @change="onFileSelected">
+      <div class="col pt-3 text-right">
+        <button class="p-2 px-4 btn btn-primary shadow-lg submit">Subir</button>
+      </div>
+    </form>
   </div>
 </template>

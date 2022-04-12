@@ -30,7 +30,6 @@ export default {
       const category = new Category(
         this.code, this.name, this.description, this.isChild, this.parentCategory
       )
-      console.log(category);
       !this.isEditing
         ? this.store.addCategory(category)
         : this.store.editCategory(this.currentCategory, category)

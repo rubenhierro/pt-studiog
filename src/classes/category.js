@@ -1,4 +1,4 @@
-export default class category {
+export default class Category {
   code;
   name;
   description;
