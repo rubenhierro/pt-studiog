@@ -42,6 +42,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/admin/productos/:code/:name?",
+      name: "product",
+      component: () => import("@/views/admin/Product.vue"),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
       path: "/admin/pedidos",
       name: "orders",
       component: () => import("@/views/admin/Orders.vue"),

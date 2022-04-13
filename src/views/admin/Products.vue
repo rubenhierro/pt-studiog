@@ -5,12 +5,17 @@ import Prices from '../../components/Prices.vue'
 import Product from '../../classes/product'
 import { useProductsStore } from '../../stores/ProductsStore'
 import List from '../../components/List.vue'
+import RouterService from '../../services/RouterService'
+import { useRouter } from 'vue-router'
+import router from '../../router'
 
 export default {
   components: { Photos, Categories, Prices, List },
   data() {
     return {
       store: useProductsStore(),
+      router: useRouter(),
+      routerService: new RouterService(),
       code: null,
       name: null,
       description: null,
@@ -29,6 +34,13 @@ export default {
     }
   },
   methods: {
+    viewProduct(id) {
+      this.currentProduct = id
+      this.code = this.store.products[id].code
+      this.name = this.store.products[id].name
+      const slug = this.routerService.getSlug(this.name)
+      router.push(`/admin/productos/${this.code}/${slug}`)
+    },
     updateCollection() {
       const product = new Product(
         this.code,
@@ -208,7 +220,8 @@ export default {
         { display: 'Código', value: 'code' },
         { display: 'Nombre', value: 'name' },
         { display: 'Descripción', value: 'description' },
-      ]" :buttons="{ edit: true, delete: true }" @edit="editProduct" @delete="deleteProduct" />
+      ]" :buttons="{ view: true, edit: true, delete: true }" @view="viewProduct" @edit="editProduct"
+        @delete="deleteProduct" />
     </div>
   </div>
 </template>

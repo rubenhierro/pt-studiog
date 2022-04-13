@@ -9,8 +9,8 @@ export const useProductsStore = defineStore({
     getProduct: (state) => {
       return (id) => state.products.find((i, key) => key === id);
     },
-    getProductByName: (state) => {
-      return (name) => state.products.find((i, key) => i.name === name);
+    getProductByCode: (state) => {
+      return (code) => state.products.find((i, key) => i.code === code);
     },
   },
   actions: {

@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps(['name', 'list', 'properties', 'buttons'])
-const emits = defineEmits(['edit', 'delete'])
+const emits = defineEmits(['view', 'edit', 'delete'])
 </script>
 <template>
   <div v-if="list.length">
@@ -25,6 +25,9 @@ const emits = defineEmits(['edit', 'delete'])
           </div>
 
           <div class="text-end">
+            <a v-if="buttons.view" href="#" class="btn btn-primary" @click="$emit('view', key, item.id)">
+              <i class="fa-regular fa-eye"></i> Ver
+            </a>
             <a v-if="buttons.edit" href="#" class="btn btn-primary" @click="$emit('edit', key, item.id)">
               <i class="fa-regular fa-pen-to-square"></i> Editar
             </a>
