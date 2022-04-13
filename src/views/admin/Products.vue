@@ -36,6 +36,29 @@ export default {
     }
   },
   methods: {
+    //---- check availability range dates
+    isAvailableRangeDates(price) {
+      const start = price.start;
+      const end = price.end;
+      const dates = []
+
+      let loop = new Date(start);
+      dates.push(price.start)
+      do {
+        dates.push(loop)
+        let newDate = loop.setDate(loop.getDate() + 1);
+        loop = new Date(newDate);
+      }
+      while (loop < end)
+
+      for (const range of this.prices) {
+        for (const date of dates) {
+          if ((date >= range.start) && (date <= range.end)) {
+            return true
+          }
+        }
+      }
+    },
     exportExcel() {
       saveExcel({
         data: this.products,
@@ -104,7 +127,9 @@ export default {
       this.store.deleteProduct(id)
     },
     addCategory(category) {
-      this.categories.push(category)
+      !this.categories.some(i => i.code === category.code)
+        ? this.categories.push(category)
+        : alert('La categoria seleccionada ya existe!')
       if (this.isEditing)
         this.updateCollection
     },
@@ -128,7 +153,9 @@ export default {
       this.currentPhoto = this.photos[id]
     },
     addPrice(price) {
-      this.prices.push(price);
+      !this.isAvailableRangeDates(price)
+        ? this.prices.push(price)
+        : alert('Las fechas coinciden con otra tarifa!')
       if (this.isEditing)
         this.updateCollection
     },
@@ -169,7 +196,7 @@ export default {
             <!-- default price -->
             <div class="col-md-6 pt-3">
               <input type="number" id="defaultPriceInput" v-model="defaultPrice" placeholder="Precio por defecto"
-                required />
+                required min="0" />
             </div>
 
             <!-- Categories -->
