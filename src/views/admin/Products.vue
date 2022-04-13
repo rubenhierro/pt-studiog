@@ -8,6 +8,7 @@ import List from '../../components/List.vue'
 import RouterService from '../../services/RouterService'
 import { useRouter } from 'vue-router'
 import router from '../../router'
+import { saveExcel } from '@progress/kendo-vue-excel-export'
 
 export default {
   components: { Photos, Categories, Prices, List },
@@ -35,6 +36,18 @@ export default {
     }
   },
   methods: {
+    exportExcel() {
+      saveExcel({
+        data: this.products,
+        fileName: "products.xlsx",
+        columns: [
+          { field: 'code', title: 'Codigo' },
+          { field: 'name', title: 'Nombre' },
+          { field: 'description', title: 'Descripcion' },
+          { field: 'defaultPrice', title: 'Precio por defecto' },
+        ]
+      });
+    },
     viewProduct(id) {
       this.currentProduct = id
       this.code = this.store.products[id].code
@@ -219,6 +232,7 @@ export default {
         { display: 'Descripción', value: 'description' },
       ]" :buttons="{ view: true, edit: true, delete: true }" @view="viewProduct" @edit="editProduct"
         @delete="deleteProduct" />
+        <button class="btn btn-primary text-end" @click="exportExcel">Descargar Excel</button>
     </div>
   </div>
 </template>

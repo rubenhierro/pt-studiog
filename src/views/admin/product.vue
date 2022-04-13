@@ -27,8 +27,8 @@ export default {
   <h1>Producto</h1>
   <div class="containter">
     <h2>Código: {{ product.code }}</h2>
-    <p class="fw-bold mt-2">Nombre: {{ product.name }}</p>
-    <p class="fw-bold mt-2">Descripción: {{ product.description }}</p>
+    <p class="mt-2"><span class="fw-bold">Nombre: </span>{{ product.name }}</p>
+    <p class="mt-2"><span class="fw-bold">Descripción: </span>{{ product.description }}</p>
 
     <!-- Categorias -->
     <p class="fw-bold mt-2">Categorias:</p>
