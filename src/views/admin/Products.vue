@@ -25,7 +25,8 @@ export default {
       defaultPrice: null,
       preview: false,
       isEditing: false,
-      currentProduct: null
+      currentProduct: null,
+      currentPhoto: null
     }
   },
   computed: {
@@ -111,8 +112,7 @@ export default {
     },
     previewPhoto(id) {
       this.preview = true
-      const img = this.photos[id].img
-      document.getElementById('preview').setAttribute('src', img)
+      this.currentPhoto = this.photos[id]
     },
     addPrice(price) {
       this.prices.push(price);
@@ -181,13 +181,10 @@ export default {
                   <span class="text-danger btn" @click="deletePhoto(index)">[Eliminar]</span>
                 </li>
               </ul>
-              <div v-if="preview">
-                <div class="card">
-                  <div class="card-content">
-                    <img id="preview" src="" alt="Vista previa" width="150" />
-                    <p class="text-danger btn" @click="this.preview = false">[Cerrar]</p>
-                  </div>
-                </div>
+              <div v-if="preview" class="ms-3 mb-3 border border-2 p-2">
+                <p class="card-title">{{ currentPhoto.name }}</p>
+                <img id="preview" :src="currentPhoto.img" :alt="currentPhoto.name" width="150" />
+                <p class="text-danger btn" @click="this.preview = false">[Cerrar]</p>
               </div>
               <Photos @addPhoto="addPhoto" />
             </div>
