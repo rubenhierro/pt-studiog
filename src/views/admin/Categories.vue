@@ -24,6 +24,9 @@ export default {
     parentCategories() {
       return this.store.getParentCategories
     },
+    parentCategoriesFiltered() {
+      return this.store.getParentCategoriesFiltered(this.name)
+    },
   },
   methods: {
     addCategory() {
@@ -92,12 +95,19 @@ export default {
 
               <!-- Categoria Padre -->
               <div v-if="isChild" class="col-md-6 pt-3">
-                <select class="form-select" aria-label="Default select example" v-model="parentCategory">
+                <select v-if="isEditing" class="form-select" aria-label="Default select example" v-model="parentCategory">
+                  <option selected>Categoría padre</option>
+                  <option v-for="(category, index) of parentCategoriesFiltered" :index="index" :value="category.name"
+                    :selected="{ true: category.name === parentCategory }">
+                    {{ category.name }}
+                  </option>
+                </select>
+
+                <select v-else class="form-select" aria-label="Default select example" v-model="parentCategory">
                   <option selected>Categoría padre</option>
                   <option v-for="(category, index) of parentCategories" :index="index" :value="category.name"
-                    :selected="{ true: category.name === parentCategory }">{{
-                      category.name
-                    }}
+                    :selected="{ true: category.name === parentCategory }">
+                    {{ category.name }}
                   </option>
                 </select>
               </div>

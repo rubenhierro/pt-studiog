@@ -1,6 +1,7 @@
 <script>
 import { useRoute } from 'vue-router'
 import { useProductsStore } from '../../stores/ProductsStore'
+import { PDFExport, savePDF } from "@progress/kendo-vue-pdf";
 
 export default {
   data() {
@@ -14,19 +15,24 @@ export default {
       return this.route.params.code
     },
     product() {
-      console.log(this.store.getProductByCode(this.code))
       return this.store.getProductByCode(this.code)
     }
   },
-  mounted() {
-    console.log(this.route.params.code);
-  },
+  methods: {
+    exportPDFWithMethod: function () {
+      savePDF(this.$refs.container, {
+        paperSize: "A4",
+        margin: 40,
+        fileName: `Producto-${this.code}`
+      });
+    },
+  }
 }
 </script>
 <template>
   <h1>Producto</h1>
-  <div class="containter">
-    <h2>Código: {{ product.code }}</h2>
+  <div class="containter" ref="container">
+    <h2>{{ product.code }}</h2>
     <p class="mt-2"><span class="fw-bold">Nombre: </span>{{ product.name }}</p>
     <p class="mt-2"><span class="fw-bold">Descripción: </span>{{ product.description }}</p>
 
@@ -59,4 +65,5 @@ export default {
       </ul>
     </span>
   </div>
+  <button class="btn btn-primary text-end" @click="exportPDFWithMethod">Descargar PDF</button>
 </template>

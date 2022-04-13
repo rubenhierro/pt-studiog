@@ -90,7 +90,7 @@ export default {
   <div class="container">
     <h1>Admin Pedidos</h1>
   </div>
-  <div class="row">
+  <div class="row" v-if="products.length">
     <div class="col">
       <div class="card">
         <div class="card-body">
@@ -143,5 +143,8 @@ export default {
         { display: 'Total', value: 'total' }
       ]" :buttons="{ edit: true, delete: true }" @edit="editOrder" @delete="deleteOrder" />
     </div>
+  </div>
+  <div v-else>
+    <p class="text-danger fs-3">No hay productos que mostrar</p>
   </div>
 </template>

@@ -18,21 +18,24 @@ export default {
     addCategory() {
       if (this.category) {
         const category = this.store.getCategory(this.category)
+        console.log(category);
         this.$emit('addCategory', category)
         this.category = null
         document.getElementById('formCategory').reset()
       }
+    },
+    console() {
+      console.log(this.category);
     }
   }
 }
 </script>
 <template>
-  <form id="formCategory" @submit.prevent="addCategory(index)">
+  <form id="formCategory" @submit.prevent="addCategory">
     <div>
       <select class="form-select" aria-label="Default select example" v-model="category">
         <option selected>Seleccionar categoría</option>
-        <option v-for="(category, index) of categories" :index="index" :value="index"
-          :selected="{ true: category.name === category }">{{
+        <option v-for="(category, index) of categories" :index="index" :value="category.name" :selected="{ true: category.name === category }">{{
             category.name
           }}
         </option>

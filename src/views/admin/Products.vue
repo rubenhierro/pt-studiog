@@ -232,7 +232,9 @@ export default {
         { display: 'Descripción', value: 'description' },
       ]" :buttons="{ view: true, edit: true, delete: true }" @view="viewProduct" @edit="editProduct"
         @delete="deleteProduct" />
+      <div v-if="products.length">
         <button class="btn btn-primary text-end" @click="exportExcel">Descargar Excel</button>
+      </div>
     </div>
   </div>
 </template>

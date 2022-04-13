@@ -3,28 +3,14 @@ import { defineStore } from "pinia";
 export const useCategoriesStore = defineStore({
   id: "categories",
   state: () => ({
-    categories: JSON.parse(localStorage.getItem("categories")) || [
-      {
-        code: "c1",
-        name: "zapatos",
-        description: "categoria ppal de zapatos",
-        isChild: false,
-        parentCategory: null,
-      },
-      {
-        code: "c2",
-        name: "pantalones",
-        description: "categoria ppal de pantalones",
-        isChild: false,
-        parentCategory: null,
-      },
-    ],
+    categories: JSON.parse(localStorage.getItem("categories")) || [],
   }),
   getters: {
+    getParentCategoriesFiltered: (state) => (name) => state.categories.filter((i) => i.isChild === false && i.name !== name),
     getParentCategories: (state) =>
       state.categories.filter((i) => i.isChild === false),
     getCategory: (state) => {
-      return (id) => state.categories.find((i, key) => key === id)
+      return (name) => state.categories.find((i, key) => i.name === name);
     },
   },
   actions: {

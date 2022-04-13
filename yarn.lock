@@ -24,6 +24,13 @@
   dependencies:
     "@progress/pako-esm" "^1.0.1"
 
+"@progress/kendo-drawing@^1.9.3":
+  "integrity" "sha512-zUh0EjffezxJy4osPVeHflbosdlMk971hYj3zJ8mAHiswUei5UTIn7aAxfHDXu3Fpw2d9WyRi/LkI0xKWNmDRA=="
+  "resolved" "https://registry.npmjs.org/@progress/kendo-drawing/-/kendo-drawing-1.16.3.tgz"
+  "version" "1.16.3"
+  dependencies:
+    "@progress/pako-esm" "^1.0.1"
+
 "@progress/kendo-file-saver@^1.1.0":
   "integrity" "sha512-mo0Cw3MLoLcx2bA+Ma/VAxkM9vHSJ4Sg0vgh6U1ZIvPXmnfO8Dgsdiv/475lafyju0kG8KOhl3bcVagCF71glQ=="
   "resolved" "https://registry.npmjs.org/@progress/kendo-file-saver/-/kendo-file-saver-1.1.1.tgz"
@@ -58,6 +65,14 @@
   dependencies:
     "@progress/kendo-file-saver" "^1.1.0"
     "@progress/kendo-ooxml" "^1.6.1"
+    "@progress/kendo-vue-common" "3.2.0"
+
+"@progress/kendo-vue-pdf@^3.2.0":
+  "integrity" "sha512-hxqumn9ajeuqxn5RsnGgV0UQFV6V6CyWzechCtx/6AfjP9TjUPmOE2Mt9H2uHBXO1BkNFRxrpwDWhsMnQzQnfQ=="
+  "resolved" "https://registry.npmjs.org/@progress/kendo-vue-pdf/-/kendo-vue-pdf-3.2.0.tgz"
+  "version" "3.2.0"
+  dependencies:
+    "@progress/kendo-file-saver" "^1.1.0"
     "@progress/kendo-vue-common" "3.2.0"
 
 "@progress/pako-esm@^1.0.1":
