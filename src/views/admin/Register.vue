@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import User from "../../classes/userClass"
+import User from "../../classes/user"
 import { LoginStore } from '../../stores/LoginStore'
 
 const store = LoginStore()
@@ -92,7 +92,7 @@ function register() {
     if (isSuperUser.value) {
       store.setIsSuperUser(true)
     }
-    router.push({ name: 'apartment' })
+    router.push({ name: 'home' })
   } else {
     document.getElementById('register-form').reset()
   }

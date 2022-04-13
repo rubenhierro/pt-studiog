@@ -18,15 +18,11 @@ export default {
     addCategory() {
       if (this.category) {
         const category = this.store.getCategory(this.category)
-        console.log(category);
         this.$emit('addCategory', category)
         this.category = null
         document.getElementById('formCategory').reset()
       }
     },
-    console() {
-      console.log(this.category);
-    }
   }
 }
 </script>

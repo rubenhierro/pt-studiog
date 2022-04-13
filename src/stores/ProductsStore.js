@@ -12,6 +12,9 @@ export const useProductsStore = defineStore({
     getProductByCode: (state) => {
       return (code) => state.products.find((i, key) => i.code === code);
     },
+    getProductByName: (state) => {
+      return (name) => state.products.find((i, key) => i.name === name);
+    },
   },
   actions: {
     addProduct(product) {

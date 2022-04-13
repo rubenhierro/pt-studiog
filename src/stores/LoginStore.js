@@ -18,6 +18,7 @@ export const LoginStore = defineStore({
   }),
   getters: {
     getIsLogged: (state) => state.isLogged,
+    getUser: (state) => (username) => state.users.find(i => i.username === username)
   },
   actions: {
     hasUser(user) {

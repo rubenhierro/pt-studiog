@@ -6,6 +6,7 @@ import { LoginStore } from '../stores/LoginStore'
 
 const store = LoginStore()
 const router = useRouter()
+const user = ref(null)
 const hasUser = ref(null)
 const hasPassword = ref(null)
 const username = ref('')
@@ -17,7 +18,8 @@ function login() {
     const user = new User(null, null, null, username.value, password.value, null)
     hasUser.value = store.hasUser(user)
     hasPassword.value = store.hasPassword(user)
-    isSuperUser.value = store.isSuperUser(user)
+    user.value = store.getUser(username.value)
+    isSuperUser.value = user.value.isSuperUser
 
     if (hasUser.value && hasPassword.value) {
       store.setIsLogged(true)

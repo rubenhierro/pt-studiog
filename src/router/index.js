@@ -18,7 +18,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/register",
+      path: "/admin/register",
       name: "register",
       component: () => import("@/views/admin/Register.vue"),
       meta: {
@@ -65,15 +65,15 @@ const router = createRouter({
   ],
 });
 
-// router.beforeEach((to, from) => {
-//   if (to.meta.requiresAuth && !JSON.parse(localStorage.getItem("isLogged"))) {
-//     return { name: "login" };
-//   }
-//   if (
-//     to.meta.requiresSuperAuth &&
-//     !JSON.parse(localStorage.getItem("isSuperUser"))
-//   ) {
-//     return { name: "login" };
-//   }
-// });
+router.beforeEach((to, from) => {
+  if (to.meta.requiresAuth && !JSON.parse(localStorage.getItem("isLogged"))) {
+    return { name: "login" };
+  }
+  if (
+    to.meta.requiresSuperAuth &&
+    !JSON.parse(localStorage.getItem("isSuperUser"))
+  ) {
+    return { name: "login" };
+  }
+});
 export default router;

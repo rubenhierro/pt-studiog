@@ -17,8 +17,9 @@ export default {
       productsStore: useProductsStore(),
       store: useOrdersStore(),
       date: new Date(),
-      indexProduct: null,
+      // indexProduct: null,
       product: null,
+      selectedProduct: null,
       quantity: null,
       isEditing: false,
       currentOrder: null,
@@ -37,51 +38,55 @@ export default {
       return this.store.orders
     },
     total() {
-      if (this.date && this.product && this.quantity) {
+      if (this.date && this.selectedProduct && this.quantity) {
         const price = this.isPriceInRange()
         if (price) {
           return this.quantity * price
         } else {
-          return this.quantity * this.product.defaultPrice
+          return this.quantity * this.selectedProduct.defaultPrice
         }
       }
     }
   },
   methods: {
-    getProduct() {
-      this.product = this.productsStore.getProduct(this.indexProduct)
+    getProductByName() {
+      this.selectedProduct = this.productsStore.getProductByName(this.product)
     },
     isPriceInRange() {
-      for (const price of this.product.prices) {
+      for (const price of this.selectedProduct.prices) {
         if (price.start <= this.date && price.end >= this.date)
           return price.price
       }
     },
     addOrder() {
       const order = new Order(
-        this.date, this.product, this.quantity, this.total
+        this.date, this.selectedProduct, this.quantity, this.total
       )
-      console.log(order);
       !this.isEditing
         ? this.store.addOrder(order)
         : this.store.editOrder(this.currentOrder, order)
       this.date = new Date()
       this.indexProduct = null
       this.product = null
-      this.quantity = null
+      this.selectedProduct = null
+      this.quantity = 1
       this.total = null
       this.isEditing = false
     },
     editOrder(id) {
       this.isEditing = true
       this.date = this.store.orders[id].date
-      this.product = this.store.orders[id].product
+      this.product = this.store.orders[id].product.name
       this.quantity = this.store.orders[id].quantity
-      this.total = this.store.orders[id].total
       this.currentOrder = id
     },
     deleteOrder(id) {
       this.store.deleteOrder(id)
+    }
+  },
+  watch: {
+    product(val) {
+      this.getProductByName()
     }
   }
 }
@@ -105,11 +110,11 @@ export default {
 
             <!-- Producto -->
             <div class="col-md-6 pt-3">
-              <select class="form-select" aria-label="Default select example" v-model="indexProduct"
-                @change="getProduct()">
+              <select class="form-select" aria-label="Default select example" v-model="product"
+                @change="getProductByName">
                 <option selected>Elegir producto</option>
-                <option v-for="(product, index) of products" :index="index" :value="index"
-                  :selected="{ true: product.name === productName }">{{
+                <option v-for="(product, index) of products" :index="index" :value="product.name"
+                  :selected="{ true: product.name === product }">{{
                     product.name
                   }}
                 </option>
